@@ -79,7 +79,7 @@
         "typescript-transform-paths": "^3.5.3",
         "zip-local": "^0.3.5"
     },
-    "packageManager": "pnpm@10.4.1",
+    "packageManager": "pnpm@10.5.0+sha512.11106a5916c7406fe4b8cb8e3067974b8728f47308a4f5ac5e850304afa6f57e2847d7950dfe78877d8d36bfb401d381c4215db3a4c3547ffa63c14333a6fa51",
     "pnpm": {
         "patchedDependencies": {
             "eslint@9.20.1": "patches/eslint@9.20.1.patch",
@@ -100,7 +100,11 @@
         },
         "onlyBuiltDependencies": [
             "esbuild"
-        ]
+        ],
+        "overrides": {
+            "jszip@<3.8.0": ">=3.8.0",
+            "esbuild@<=0.24.2": ">=0.25.0"
+        }
     },
     "engines": {
         "node": ">=18"

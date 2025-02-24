@@ -6,6 +6,7 @@
 
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
 import { ChannelStore, GuildStore } from "@webpack/common";
@@ -18,7 +19,7 @@ const settings = definePluginSettings({
         type: OptionType.SLIDER,
         description: "The time in days before a summary is removed. Note that only up to 100 summaries are kept per channel",
         markers: [1, 3, 5, 7, 10, 15, 20, 25, 30],
-        stickToMarkers: false,
+        stickToMarkers: true,
         default: 30,
     }
 });
@@ -76,8 +77,8 @@ export default definePlugin({
             DataStore.update("summaries-data", summaries => {
                 summaries ??= {};
                 summaries[data.channel_id] ? summaries[data.channel_id].unshift(...incomingSummaries) : (summaries[data.channel_id] = incomingSummaries);
-                if (summaries[data.channel_id].length > 150)
-                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, 150);
+                if (summaries[data.channel_id].length > 200)
+                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, 200);
                 return summaries;
             });
         }
