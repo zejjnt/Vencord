@@ -45,13 +45,7 @@ const settings = definePluginSettings({
         default: false,
         restartNeeded: true,
         // Web slate menu has proper spellcheck suggestions and image context menu is also pretty good,
-<<<<<<< HEAD
-        // so disable this by default. Vesktop just doesn't, so enable by default
-        default: false,
-        restartNeeded: true,
-=======
         // so disable this by default. Vesktop just doesn't, so we force enable it there
->>>>>>> 93f98cee2c4820135acbb010ca4abb17c7f5c064
         hidden: IS_VESKTOP,
     }
 });
