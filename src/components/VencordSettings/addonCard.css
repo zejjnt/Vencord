@@ -12,7 +12,11 @@
 }
 
 .visual-refresh .vc-addon-card {
+<<<<<<< HEAD
     background-color: var(--button-secondary-background);
+=======
+    background-color: var(--card-primary-bg);
+>>>>>>> 93f98cee2c4820135acbb010ca4abb17c7f5c064
     border: 1px solid var(--border-subtle);
 }
 
@@ -27,7 +31,12 @@
 }
 
 .visual-refresh .vc-addon-card:hover {
+<<<<<<< HEAD
     background-color: var(--button-secondary-background-hover);
+=======
+    /* same as non-hover, here to overwrite the non-refresh hover background */
+    background-color: var(--card-primary-bg);
+>>>>>>> 93f98cee2c4820135acbb010ca4abb17c7f5c064
 }
 
 .vc-addon-header {
