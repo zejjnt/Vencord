@@ -44,7 +44,7 @@ import SettingsPlugin from "./settings";
 const CodeBlockRe = /```js\n(.+?)```/s;
 
 const AdditionalAllowedChannelIds = [
-    "1024286218801926184" // Vencord > #bot-spam
+    "1024286218801926184", // Vencord > #bot-spam
 ];
 
 const TrustedRolesIds = [
