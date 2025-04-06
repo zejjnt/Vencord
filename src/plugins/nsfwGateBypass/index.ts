@@ -26,10 +26,16 @@ export default definePlugin({
     patches: [
         {
             find: ".nsfwAllowed=null",
-            replacement: {
-                match: /(?<=\.nsfwAllowed=)null!==.+?(?=[,;])/,
-                replace: "!0",
-            },
-        },
+            replacement: [
+                {
+                    match: /(?<=\.nsfwAllowed=)null!==.+?(?=[,;])/,
+                    replace: "true",
+                },
+                {
+                    match: /(?<=\.ageVerificationStatus=)null!==.+?(?=[,;])/,
+                    replace: "3", // VERIFIED_ADULT
+                }
+            ],
+        }
     ],
 });
