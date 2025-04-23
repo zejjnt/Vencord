@@ -42,6 +42,8 @@ const settings = definePluginSettings({
     addBack: {
         type: OptionType.BOOLEAN,
         description: "Add back the Discord context menus for images, links and the chat input bar",
+        default: false,
+        restartNeeded: true,
         // Web slate menu has proper spellcheck suggestions and image context menu is also pretty good,
         // so disable this by default. Vesktop just doesn't, so we force enable it there
         hidden: IS_VESKTOP,
@@ -49,6 +51,10 @@ const settings = definePluginSettings({
 });
 
 const shouldAddBackMenus = () => IS_VESKTOP || settings.store.addBack;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 948b3c01a86aec01365b77c3f1d2ea0c253f1479
 const MEDIA_PROXY_URL = "https://media.discordapp.net";
 const CDN_URL = "cdn.discordapp.com";
 
@@ -155,7 +161,7 @@ export default definePlugin({
         // Add back link context menu
         {
             find: '"interactionUsernameProfile"',
-            predicate: () => settings.store.addBack,
+            predicate: shouldAddBackMenus,
             replacement: {
                 match: /if\((?="A"===\i\.tagName&&""!==\i\.textContent)/,
                 replace: "if(false&&"
