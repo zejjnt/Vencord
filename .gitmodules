@@ -4,9 +4,6 @@
 [submodule "src/userplugins/vc-sidebarchat"]
 	path = src/userplugins/vc-sidebarchat
 	url = https://github.com/Masterjoona/vc-sidebarchat
-[submodule "src/userplugins/vc-newPluginsManager"]
-	path = src/userplugins/vc-newPluginsManager
-	url = https://github.com/Sqaaakoi/vc-newPluginsManager
 [submodule "src/userplugins/NeverPausePreviews"]
 	path = src/userplugins/NeverPausePreviews
 	url = https://github.com/RattletraPM/NeverPausePreviews
