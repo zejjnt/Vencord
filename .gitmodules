@@ -22,3 +22,6 @@
 [submodule "src/userplugins/vc-betterActivities"]
 	path = src/userplugins/vc-betterActivities
 	url = https://github.com/D3SOX/vc-betterActivities
+[submodule "src/userplugins/vc-newPluginsManager"]
+	path = src/userplugins/vc-newPluginsManager
+	url = https://github.com/zejjnt/vc-newPluginsManager
