@@ -18,7 +18,7 @@
 	url = https://github.com/ScattrdBlade/bigFileUpload
 [submodule "src/userplugins/vc-betterplusreacts"]
 	path = src/userplugins/vc-betterplusreacts
-	url = https://github.com/Masterjoona/vc-betterplusreacts
+	url = https://github.com/zejjnt/vc-betterplusreacts
 [submodule "src/userplugins/vc-betterActivities"]
 	path = src/userplugins/vc-betterActivities
 	url = https://github.com/D3SOX/vc-betterActivities
