@@ -1,27 +1,27 @@
 [submodule "src/userplugins/ThemeLibrary"]
 	path = src/userplugins/ThemeLibrary
-	url = https://github.com/Faf4a/ThemeLibrary
+	url = https://github.com/zejjnt/ThemeLibrary
 [submodule "src/userplugins/vc-sidebarchat"]
 	path = src/userplugins/vc-sidebarchat
-	url = https://github.com/Masterjoona/vc-sidebarchat
+	url = https://github.com/zejjnt/vc-sidebarchat
 [submodule "src/userplugins/NeverPausePreviews"]
 	path = src/userplugins/NeverPausePreviews
-	url = https://github.com/RattletraPM/NeverPausePreviews
+	url = https://github.com/zejjnt/NeverPausePreviews
 [submodule "src/userplugins/vc-mediaPlaybackSpeed"]
 	path = src/userplugins/vc-mediaPlaybackSpeed
-	url = https://github.com/D3SOX/vc-mediaPlaybackSpeed
+	url = https://github.com/zejjnt/vc-mediaPlaybackSpeed
 [submodule "src/userplugins/HolyNotes-VC"]
 	path = src/userplugins/HolyNotes-VC
-	url = https://github.com/WolfPlugs/HolyNotes-VC
+	url = https://github.com/zejjnt/HolyNotes-VC
 [submodule "src/userplugins/bigFileUpload"]
 	path = src/userplugins/bigFileUpload
-	url = https://github.com/ScattrdBlade/bigFileUpload
+	url = https://github.com/zejjnt/bigFileUpload
 [submodule "src/userplugins/vc-betterplusreacts"]
 	path = src/userplugins/vc-betterplusreacts
 	url = https://github.com/zejjnt/vc-betterplusreacts
 [submodule "src/userplugins/vc-betterActivities"]
 	path = src/userplugins/vc-betterActivities
-	url = https://github.com/D3SOX/vc-betterActivities
+	url = https://github.com/zejjnt/vc-betterActivities
 [submodule "src/userplugins/vc-newPluginsManager"]
 	path = src/userplugins/vc-newPluginsManager
 	url = https://github.com/zejjnt/vc-newPluginsManager
