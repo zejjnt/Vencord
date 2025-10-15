@@ -25,3 +25,6 @@
 [submodule "src/userplugins/vc-newPluginsManager"]
 	path = src/userplugins/vc-newPluginsManager
 	url = https://github.com/zejjnt/vc-newPluginsManager
+[submodule "src/userplugins/shyTyping"]
+	path = src/userplugins/shyTyping
+	url = https://git.nin0.dev/ZaInT/shyTyping
