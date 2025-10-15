@@ -24,3 +24,5 @@ ExtensionCache/
 
 src/userplugins
 src/userplugins/*
+/src/userplugins
+/src/userplugins/*
