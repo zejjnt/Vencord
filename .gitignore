@@ -21,16 +21,3 @@ lerna-debug.log*
 
 ExtensionCache/
 /settings
-
-src/userplugins
-src/userplugins/
-src/userplugins/*
-/src/userplugins
-/src/userplugins/
-/src/userplugins/*
-userplugins
-userplugins/
-userplugins/*
-.userplugins
-.userplugins/
-.userplugins/*
