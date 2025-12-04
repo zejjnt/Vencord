@@ -198,7 +198,7 @@ function ChangeDecorationModal(props: ModalProps) {
                 />
                 <div className={cl("change-decoration-modal-preview")}>
                     <AvatarDecorationModalPreview
-                        avatarDecorationOverride={avatarDecorationOverride}
+                        avatarDecoration={avatarDecoration}
                         user={UserStore.getCurrentUser()}
                     />
                     {isActiveDecorationPreset && <Forms.FormTitle className="">Part of the {activeDecorationPreset.name} Preset</Forms.FormTitle>}
