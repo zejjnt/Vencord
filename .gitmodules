@@ -40,3 +40,6 @@
 [submodule "src/userplugins/vc-showMessageEmbeds"]
 	path = src/userplugins/vc-showMessageEmbeds
 	url = https://github.com/zejjnt/vc-showMessageEmbeds
+[submodule "src/userplugins/vc-unreadcountbadge"]
+	path = src/userplugins/vc-unreadcountbadge
+	url = https://github.com/zejjnt/vc-unreadcountbadge
