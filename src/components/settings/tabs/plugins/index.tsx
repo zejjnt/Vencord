@@ -242,7 +242,7 @@ function PluginSettings() {
     }
 
     return (
-        <SettingsTab title="Plugins">
+        <SettingsTab>
             <ReloadRequiredCard required={changes.hasChanges} />
 
             <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>

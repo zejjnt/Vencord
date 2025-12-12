@@ -75,10 +75,35 @@ export interface ChatBarProps {
     };
 }
 
-export type ChatBarButtonFactory = (props: ChatBarProps & { isMainChat: boolean; }) => JSX.Element | null;
+export type ChatBarButtonFactory = (props: ChatBarProps & { isMainChat: boolean; isAnyChat: boolean; }) => JSX.Element | null;
+export type ChatBarButtonData = {
+    render: ChatBarButtonFactory;
+    /**
+     * This icon is used only for Settings UI. Your render function must still render an icon,
+     * and it can be different from this one.
+     */
+    icon: IconComponent;
+};
 
 const buttonFactories = new Map<string, ChatBarButtonFactory>();
 const logger = new Logger("ChatButtons");
+
+function VencordChatBarButtons(props: ChatBarProps) {
+    const { chatBarButtons } = useSettings(["uiElements.chatBarButtons.*"]).uiElements;
+
+    const { analyticsName } = props.type;
+    return (
+        <>
+            {Array.from(ChatBarButtonMap)
+                .filter(([key]) => chatBarButtons[key]?.enabled !== false)
+                .map(([key, { render: Button }]) => (
+                    <ErrorBoundary noop key={key} onError={e => logger.error(`Failed to render ${key}`, e.error)}>
+                        <Button {...props} isMainChat={analyticsName === "normal"} isAnyChat={["normal", "sidebar"].includes(analyticsName)} />
+                    </ErrorBoundary>
+                ))}
+        </>
+    );
+}
 
 export function _injectButtons(buttons: ReactNode[], props: ChatBarProps) {
     if (props.disabled) return;
