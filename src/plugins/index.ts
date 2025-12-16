@@ -171,6 +171,8 @@ for (const p of pluginsValues) {
             }
         }
     }
+export function pluginRequiresRestart(p: Plugin) {
+    return p.requiresRestart !== false && (p.requiresRestart || !!p.patches?.length);
 }
 
 export const startAllPlugins = traceFunction("startAllPlugins", function startAllPlugins(target: StartAt) {
@@ -200,7 +202,7 @@ export function startDependenciesRecursive(p: Plugin) {
             settings[d].enabled = true;
             dep.isDependency = true;
 
-            if (dep.patches) {
+            if (pluginRequiresRestart(dep)) {
                 logger.warn(`Enabling dependency ${d} requires restart.`);
                 restartNeeded = true;
                 return;
