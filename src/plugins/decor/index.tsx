@@ -112,7 +112,7 @@ export default definePlugin({
     ],
     settings,
 
-flux: {
+    flux: {
         CONNECTION_OPEN: () => {
             useAuthorizationStore.getState().init();
             useCurrentUserDecorationsStore.getState().clear();
