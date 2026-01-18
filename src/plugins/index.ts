@@ -30,9 +30,9 @@ import { disableStyle, enableStyle } from "@api/Styles";
 import { Logger } from "@utils/Logger";
 import { canonicalizeFind, canonicalizeReplacement } from "@utils/patches";
 import { Patch, Plugin, PluginDef, ReporterTestable, StartAt } from "@utils/types";
+import { FluxEvents } from "@vencord/discord-types";
 import { FluxDispatcher } from "@webpack/common";
 import { patches } from "@webpack/patcher";
-import { FluxEvents } from "@webpack/types";
 
 import Plugins from "~plugins";
 
@@ -171,6 +171,8 @@ for (const p of pluginsValues) {
             }
         }
     }
+export function pluginRequiresRestart(p: Plugin) {
+    return p.requiresRestart !== false && (p.requiresRestart || !!p.patches?.length);
 }
 
 export const startAllPlugins = traceFunction("startAllPlugins", function startAllPlugins(target: StartAt) {
@@ -200,7 +202,7 @@ export function startDependenciesRecursive(p: Plugin) {
             settings[d].enabled = true;
             dep.isDependency = true;
 
-            if (dep.patches) {
+            if (pluginRequiresRestart(dep)) {
                 logger.warn(`Enabling dependency ${d} requires restart.`);
                 restartNeeded = true;
                 return;
@@ -222,7 +224,7 @@ export function subscribePluginFluxEvents(p: Plugin, fluxDispatcher: typeof Flux
         for (const [event, handler] of Object.entries(p.flux)) {
             const wrappedHandler = p.flux[event] = function () {
                 try {
-                    const res = handler.apply(p, arguments as any);
+                    const res = handler!.apply(p, arguments as any);
                     return res instanceof Promise
                         ? res.catch(e => logger.error(`${p.name}: Error while handling ${event}\n`, e))
                         : res;
@@ -242,7 +244,7 @@ export function unsubscribePluginFluxEvents(p: Plugin, fluxDispatcher: typeof Fl
 
         logger.debug("Unsubscribing from flux events of plugin", p.name);
         for (const [event, handler] of Object.entries(p.flux)) {
-            fluxDispatcher.unsubscribe(event as FluxEvents, handler);
+            fluxDispatcher.unsubscribe(event as FluxEvents, handler!);
         }
     }
 }

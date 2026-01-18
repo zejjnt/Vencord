@@ -1,0 +1,27 @@
+name: CI — Checkout with Submodules (HTTPS/GITHUB_TOKEN)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'     # fetch nested submodules
+          fetch-depth: 0              # full history (recommended for submodules)
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure submodules are up-to-date (defensive)
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive --force
+
+      - name: Build / Test
+        run: |
+          echo "Submodules are checked out. Proceed with build/test steps."

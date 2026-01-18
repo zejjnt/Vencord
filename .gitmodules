@@ -1,0 +1,45 @@
+[submodule "src/userplugins/ThemeLibrary"]
+	path = src/userplugins/ThemeLibrary
+	url = https://github.com/zejjnt/ThemeLibrary
+[submodule "src/userplugins/vc-sidebarchat"]
+	path = src/userplugins/vc-sidebarchat
+	url = https://github.com/zejjnt/vc-sidebarchat
+[submodule "src/userplugins/NeverPausePreviews"]
+	path = src/userplugins/NeverPausePreviews
+	url = https://github.com/zejjnt/NeverPausePreviews
+[submodule "src/userplugins/vc-mediaPlaybackSpeed"]
+	path = src/userplugins/vc-mediaPlaybackSpeed
+	url = https://github.com/zejjnt/vc-mediaPlaybackSpeed
+[submodule "src/userplugins/HolyNotes-VC"]
+	path = src/userplugins/HolyNotes-VC
+	url = https://github.com/zejjnt/HolyNotes-VC
+[submodule "src/userplugins/bigFileUpload"]
+	path = src/userplugins/bigFileUpload
+	url = https://github.com/zejjnt/bigFileUpload
+[submodule "src/userplugins/vc-betterplusreacts"]
+	path = src/userplugins/vc-betterplusreacts
+	url = https://github.com/zejjnt/vc-betterplusreacts
+[submodule "src/userplugins/vc-betterActivities"]
+	path = src/userplugins/vc-betterActivities
+	url = https://github.com/zejjnt/vc-betterActivities
+[submodule "src/userplugins/shyTyping"]
+	path = src/userplugins/shyTyping
+	url = https://git.nin0.dev/ZaInT/shyTyping
+[submodule "src/userplugins/vc-streampip"]
+	path = src/userplugins/vc-streampip
+	url = https://github.com/zejjnt/vc-streampip
+[submodule "src/userplugins/vc-randomqolstuff"]
+	path = src/userplugins/vc-randomqolstuff
+	url = https://github.com/zejjnt/vc-randomqolstuff
+[submodule "src/userplugins/moreReact"]
+	path = src/userplugins/moreReact
+	url = https://github.com/zejjnt/moreReact
+[submodule "src/userplugins/showPing"]
+	path = src/userplugins/showPing
+	url = https://github.com/zejjnt/showPing
+[submodule "src/userplugins/vc-showMessageEmbeds"]
+	path = src/userplugins/vc-showMessageEmbeds
+	url = https://github.com/zejjnt/vc-showMessageEmbeds
+[submodule "src/userplugins/vc-unreadcountbadge"]
+	path = src/userplugins/vc-unreadcountbadge
+	url = https://github.com/zejjnt/vc-unreadcountbadge

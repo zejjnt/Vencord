@@ -35,6 +35,14 @@ const DESKTOP_ONLY = (f: string) => () => {
     throw new Error(`'${f}' is Discord Desktop only.`);
 };
 
+const makeVesktopSwitcher = (branch: string) => () => {
+    if (Vesktop.Settings.store.discordBranch === branch)
+        throw new Error(`Already on ${branch}`);
+
+    Vesktop.Settings.store.discordBranch = branch;
+    VesktopNative.app.relaunch();
+};
+
 const define: typeof Object.defineProperty =
     (obj, prop, desc) => {
         if (Object.hasOwn(desc, "value"))
@@ -74,6 +82,22 @@ function makeShortcuts() {
         };
     }
 
+    function findStoreWrapper(findStore: typeof Webpack.findStore) {
+        const cache = new Map<string, unknown>();
+
+        return function (storeName: string) {
+            const cacheKey = String(storeName);
+            if (cache.has(cacheKey)) return cache.get(cacheKey);
+
+            let store: unknown;
+            try {
+                store = findStore(storeName);
+            } catch { }
+            if (store) cache.set(cacheKey, store);
+            return store;
+        };
+    }
+
     let fakeRenderWin: WeakRef<Window> | undefined;
     const find = newFindWrapper(f => f);
     const findByProps = newFindWrapper(filters.byProps);
@@ -98,7 +122,7 @@ function makeShortcuts() {
         findComponentByCode: newFindWrapper(filters.componentByCode),
         findAllComponentsByCode: (...code: string[]) => findAll(filters.componentByCode(...code)),
         findExportedComponent: (...props: string[]) => findByProps(...props)[props[0]],
-        findStore: newFindWrapper(filters.byStoreName),
+        findStore: findStoreWrapper(Webpack.findStore),
         PluginsApi: { getter: () => Vencord.Plugins },
         plugins: { getter: () => Vencord.Plugins.plugins },
         Settings: { getter: () => Vencord.Settings },
@@ -136,7 +160,7 @@ function makeShortcuts() {
                 });
             }
 
-            const root = Common.ReactDOM.createRoot(doc.body.appendChild(document.createElement("div")));
+            const root = Common.createRoot(doc.body.appendChild(document.createElement("div")));
             root.render(Common.React.createElement(component, props));
 
             doc.addEventListener("close", () => root.unmount(), { once: true });
@@ -154,7 +178,7 @@ function makeShortcuts() {
         openModal: { getter: () => ModalAPI.openModal },
         openModalLazy: { getter: () => ModalAPI.openModalLazy },
 
-        Stores: Webpack.fluxStores,
+        Stores: { getter: () => Object.fromEntries(Webpack.fluxStores) },
 
         // e.g. "2024-05_desktop_visual_refresh", 0
         setExperiment: (id: string, bucket: number) => {
@@ -164,6 +188,11 @@ function makeShortcuts() {
                 experimentBucket: bucket,
             });
         },
+        ...IS_VESKTOP ? {
+            vesktopStable: makeVesktopSwitcher("stable"),
+            vesktopCanary: makeVesktopSwitcher("canary"),
+            vesktopPtb: makeVesktopSwitcher("ptb"),
+        } : {},
     };
 }
 
