@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { DataStore } from "@api/index";
+import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { hasGuildFeature } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
 import { ChannelStore, GuildStore } from "@webpack/common";
@@ -17,7 +18,7 @@ const createSummaryFromServer = findByCodeLazy(".people)),startId:", ".type}");
 const settings = definePluginSettings({
     summaryExpiryThresholdDays: {
         type: OptionType.SLIDER,
-        description: "The time in days before a summary is removed. Note that only up to 100 summaries are kept per channel",
+        description: "The time in days before a summary is removed. Note that only up to 250 summaries are kept per channel",
         markers: [1, 3, 5, 7, 10, 15, 20, 25, 30],
         stickToMarkers: true,
         default: 30,
@@ -57,7 +58,7 @@ export default definePlugin({
         {
             find: "SUMMARIZEABLE.has",
             replacement: {
-                match: /\i\.hasFeature\(\i\.\i\.SUMMARIES_ENABLED\w+?\)/g,
+                match: /\i\.features\.has\(\i\.\i\.SUMMARIES_ENABLED\w+?\)/g,
                 replace: "true"
             }
         },
@@ -77,8 +78,8 @@ export default definePlugin({
             DataStore.update("summaries-data", summaries => {
                 summaries ??= {};
                 summaries[data.channel_id] ? summaries[data.channel_id].unshift(...incomingSummaries) : (summaries[data.channel_id] = incomingSummaries);
-                if (summaries[data.channel_id].length > 200)
-                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, 200);
+                if (summaries[data.channel_id].length > 250)
+                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, 250);
                 return summaries;
             });
         }
@@ -106,7 +107,6 @@ export default definePlugin({
         const channel = ChannelStore.getChannel(channelId);
         // SUMMARIES_ENABLED feature is not in discord-types
         const guild = GuildStore.getGuild(channel.guild_id);
-        // @ts-ignore
-        return guild.hasFeature("SUMMARIES_ENABLED_GA");
+        return hasGuildFeature(guild, "SUMMARIES_ENABLED_GA");
     }
 });
