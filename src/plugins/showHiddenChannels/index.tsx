@@ -332,13 +332,6 @@ export default definePlugin({
                 {
                     // Show only the plus text without overflowed children amount
                     // if the overflow amount is <= 0 and the component is used inside the HiddenChannelLockScreen
-                    match: /(?<="\+"\.concat\()\i/,
-                    replace: overflowTextAmount => "" +
-                        `$self.isHiddenChannel(typeof shcChannel!=="undefined"?shcChannel:void 0,true)&&(${overflowTextAmount}-1)<=0?"":${overflowTextAmount}`
-                },
-                {
-                    // Show only the plus text without overflowed children amount
-                    // if the overflow amount is <= 0 and the component is used inside the HiddenChannelLockScreen
                     match: /(?<=`\+\$\{)\i(?=\})/,
                     replace: overflowTextAmount => "" +
                         `$self.isHiddenChannel(typeof shcChannel!=="undefined"?shcChannel:void 0,true)&&(${overflowTextAmount}-1)<=0?"":${overflowTextAmount}`
@@ -415,7 +408,7 @@ export default definePlugin({
                 },
                 {
                     // Remove the open chat button for the HiddenChannelLockScreen
-                    match: /(?<="participants-list-button"\),!\i&&)\(0,\i\.jsxs?\).{0,280}?iconClassName:/,
+                    match: /(?<=numRequestToSpeak:\i\}\)\}\):null,!\i&&)\(0,\i\.jsxs?\).{0,280}?iconClassName:/,
                     replace: "!$self.isHiddenChannel(arguments[0]?.channel,true)&&$&"
                 }
             ]
@@ -445,11 +438,11 @@ export default definePlugin({
             },
         },
         {
-            find: 'className:"channelMention",children:',
+            find: 'getConfig({location:"channel_mention"})',
             replacement: {
                 // Show inside voice channel instead of trying to join them when clicking on a channel mention
-                match: /(?<=getChannel\(\i\);null!=(\i))(?=.{0,100}?selectVoiceChannel)/,
-                replace: (_, channel) => `&&!$self.isHiddenChannel(${channel})`
+                match: /(?<=getChannel\(\i\);if\(null!=(\i)).{0,200}?return void (?=\i\.default\.selectVoiceChannel)/,
+                replace: (m, channel) => `${m}!$self.isHiddenChannel(${channel})&&`
             }
         },
         {
