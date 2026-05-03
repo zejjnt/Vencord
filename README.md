@@ -6,7 +6,7 @@
 The cutest Discord client mod
 
 ![](https://github.com/user-attachments/assets/3fac98c0-c411-4d2a-97a3-13b7da8687a2)
-
+[![CI — Checkout with Submodules (HTTPS/GITHUB_TOKEN)](https://github.com/zejjnt/Vencord/actions/workflows/main.yml/badge.svg)](https://github.com/zejjnt/Vencord/actions/workflows/main.yml)
 ## Features
 
 -   Easy to install
