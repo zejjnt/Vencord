@@ -4,23 +4,36 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { DataStore } from "@api/index";
+/*import { DataStore } from "@api/index";*/
+import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
+import { hasGuildFeature } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
-import { findByCodeLazy, findByPropsLazy } from "@webpack";
+import { findByPropsLazy } from "@webpack";
+/*import { findByCodeLazy, findByPropsLazy } from "@webpack";*/
 import { ChannelStore, GuildStore } from "@webpack/common";
 
 const SummaryStore = findByPropsLazy("allSummaries", "findSummary");
-const createSummaryFromServer = findByCodeLazy(".people)),startId:", ".type}");
+/*const createSummaryFromServer = findByCodeLazy(".people)),startId:", ".type}");*/
 
 const settings = definePluginSettings({
     summaryExpiryThresholdDays: {
         type: OptionType.SLIDER,
-        description: "The time in days before a summary is removed. Note that only up to 100 summaries are kept per channel",
+        description: "The time in days before a summary is removed.",
         markers: [1, 3, 5, 7, 10, 15, 20, 25, 30],
-        stickToMarkers: true,
-        default: 30,
+        stickToMarkers: false,
+        default: 3,
+    },
+    maxSummaries: {
+    	type: OptionType.SLIDER,
+    	description: "The number of summaries to keep for each channel. Set to 0 to keep an unlimited amount of summaries.",
+    	markers: [0, 10, 25, 50, 100, 150, 200, 250, 300, 400, 500],
+    	stickToMarkers: false,
+    	default: 250,
+    	onChange(newValue) {
+    		settings.store.maxSummaries = Math.floor(newValue);
+		},
     }
 });
 
@@ -38,7 +51,7 @@ interface Summary {
     unsafe: boolean;
 }
 
-interface ChannelSummaries {
+interface ChannelSummary {
     type: string;
     channel_id: string;
     guild_id: string;
@@ -47,17 +60,33 @@ interface ChannelSummaries {
     // custom property
     time?: number;
 }
+// TODO: these types are wrong and evil and incorrect
+function createChannelSummaryFromServer(s: Summary, channelId: string): ChannelSummary {
+    return {
+        id: s.id,
+        topic: s.topic,
+        summShort: s.summ_short,
+        people: Array.from(new Set(s.people)),
+        startId: s.start_id,
+        endId: s.end_id,
+        count: s.count,
+        channelId,
+        source: s.source,
+        type: s.type as any,
+    } as any as ChannelSummary;
+}
 
 export default definePlugin({
     name: "Summaries extended",
     description: "Enables Discord's experimental Summaries feature on every server, displaying AI generated summaries of conversations",
+    tags: ["Chat", "Fun", "Logging"],
     authors: [{ id:435121869193084939n, name:"ZaInT" }],
     settings,
     patches: [
         {
             find: "SUMMARIZEABLE.has",
             replacement: {
-                match: /\i\.hasFeature\(\i\.\i\.SUMMARIES_ENABLED\w+?\)/g,
+                match: /\i\.features\.has\(\i\.\i\.SUMMARIES_ENABLED\w+?\)/g,
                 replace: "true"
             }
         },
@@ -71,14 +100,17 @@ export default definePlugin({
     ],
     flux: {
         CONVERSATION_SUMMARY_UPDATE(data) {
-            const incomingSummaries: ChannelSummaries[] = data.summaries.map((summary: any) => ({ ...createSummaryFromServer(summary), time: Date.now() }));
+            const incomingSummaries: ChannelSummary[] = data.summaries.map((summary: any) => ({
+                ...createChannelSummaryFromServer(summary, undefined!),
+                time: Date.now()
+            }));
 
             // idk if this is good for performance but it doesnt seem to be a problem in my experience
             DataStore.update("summaries-data", summaries => {
                 summaries ??= {};
                 summaries[data.channel_id] ? summaries[data.channel_id].unshift(...incomingSummaries) : (summaries[data.channel_id] = incomingSummaries);
-                if (summaries[data.channel_id].length > 200)
-                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, 200);
+                if (summaries[data.channel_id].length > settings.store.maxSummaries)
+                    summaries[data.channel_id] = summaries[data.channel_id].slice(0, settings.store.maxSummaries);
                 return summaries;
             });
         }
@@ -106,7 +138,6 @@ export default definePlugin({
         const channel = ChannelStore.getChannel(channelId);
         // SUMMARIES_ENABLED feature is not in discord-types
         const guild = GuildStore.getGuild(channel.guild_id);
-        // @ts-ignore
-        return guild.hasFeature("SUMMARIES_ENABLED_GA");
+        return hasGuildFeature(guild, "SUMMARIES_ENABLED_GA");
     }
 });

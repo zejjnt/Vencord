@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { definePluginSettings } from "@api/Settings";
-import { Link } from "@components/Link";
-import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
-import { Forms, moment } from "@webpack/common";
-/* import { moment } from "@webpack/common"; */
+import { definePluginSettings } from "@api/Settings";
+import { Devs } from "@utils/constants";
+import { Forms } from "@webpack/common";
+import { Link } from "@components/Link";
+import { moment } from "@webpack/common";
 
 const settings = definePluginSettings({
     cozyFormat: {
@@ -29,22 +29,22 @@ const settings = definePluginSettings({
     },
     sameDayFormat: {
         type: OptionType.STRING,
-        default: "HH:mm:ss",
+        default: 'HH:mm:ss',
         description: "[calendar] format for today"
     },
     lastDayFormat: {
         type: OptionType.STRING,
-        default: "[yesterday] HH:mm:ss",
+        default: '[yesterday] HH:mm:ss', 
         description: "[calendar] format for yesterday"
     },
     lastWeekFormat: {
         type: OptionType.STRING,
-        default: "ddd DD.MM.YYYY HH:mm:ss",
+        default: 'ddd DD.MM.YYYY HH:mm:ss',
         description: "[calendar] format for last week"
     },
     sameElseFormat: {
         type: OptionType.STRING,
-        default: "ddd DD.MM.YYYY HH:mm:ss",
+        default: 'ddd DD.MM.YYYY HH:mm:ss',
         description: "[calendar] format for older dates"
     },
 });
@@ -52,7 +52,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "CustomTimestamps",
     description: "Custom timestamps on messages and tooltips",
-    authors: [Devs.Rini, { id: 165098921071345666n, name: "nvhhr" }],
+    authors: [Devs.Rini, {id:165098921071345666n, name:"nvhhr"}],
     settings,
     settingsAboutComponent: () => (
         <>
@@ -83,10 +83,10 @@ export default definePlugin({
 
     format(date: Date, key: string, fallback: string) {
         const t = moment(date);
-        const sameDayFormat = settings.store.sameDayFormat || "HH:mm:ss";
-        const lastDayFormat = settings.store.lastDayFormat || "[yesterday] HH:mm:ss";
-        const lastWeekFormat = settings.store.lastWeekFormat || "ddd DD.MM.YYYY HH:mm:ss";
-        const sameElseFormat = settings.store.sameElseFormat || "ddd DD.MM.YYYY HH:mm:ss";
+        const sameDayFormat = settings.store.sameDayFormat || 'HH:mm:ss';
+        const lastDayFormat = settings.store.lastDayFormat || '[yesterday] HH:mm:ss';
+        const lastWeekFormat = settings.store.lastWeekFormat || 'ddd DD.MM.YYYY HH:mm:ss';
+        const sameElseFormat = settings.store.sameElseFormat || 'ddd DD.MM.YYYY HH:mm:ss';
         return t.format(settings.store[key] || fallback)
             .replace("relative", () => t.fromNow())
             .replace("calendar", () => t.calendar(null, {
@@ -94,6 +94,6 @@ export default definePlugin({
                 lastDay: lastDayFormat,
                 lastWeek: lastWeekFormat,
                 sameElse: sameElseFormat
-            }));
+                }))
     },
 });

@@ -38,3 +38,5 @@ settings/
 /.vs/Vencord/FileContentIndex/eda6db73-5e92-4e4f-aff3-4aeab2894e6e.vsidx
 /.vs/Vencord/FileContentIndex/d7ed7fc0-68d1-4278-9cf4-05ed940ee901.vsidx
 /.vs/Vencord/FileContentIndex
+*.bak
+*.bak2

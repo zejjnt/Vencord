@@ -52,10 +52,6 @@ const settings = definePluginSettings({
 });
 
 const shouldAddBackMenus = () => IS_VESKTOP || settings.store.addBack;
-<<<<<<< HEAD
-=======
-
->>>>>>> 948b3c01a86aec01365b77c3f1d2ea0c253f1479
 const MEDIA_PROXY_URL = "https://media.discordapp.net";
 const CDN_URL = "cdn.discordapp.com";
 
