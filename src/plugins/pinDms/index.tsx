@@ -83,8 +83,13 @@ export default definePlugin({
                     replace: "privateChannelIds:$1.filter(c=>!$self.isPinned(c))"
                 },
                 {
+<<<<<<< HEAD
                     // Insert the pinned channels to sections
                     match: /(?<=renderRow:this\.renderRow,)sections:\[.+?1\)]/,
+=======
+                    // Keep the native anchor, accepting only FlexibleDMs' known render wrapper.
+                    match: /(?<=renderRow:(?:this\.renderRow|Vencord\.Plugins\.plugins(?:\.FlexibleDMs|\["FlexibleDMs"\])\.cachedRenderRow\(this\)),)sections:\[\i,Math\.max\(\i\.length,1\)\]/,
+>>>>>>> f6662411 (fix(FlexibleDMs): preserve native pins and folder state)
                     replace: "...$self.makeProps(this,{$&})"
                 },
 
@@ -141,8 +146,13 @@ export default definePlugin({
         {
             find: ".APPLICATION_STORE&&",
             replacement: {
+<<<<<<< HEAD
                 // channelIds = __OVERLAY__ ? stuff : [...getStaticPaths(),...channelIds)]
                 match: /(?<=\i=__OVERLAY__\?\i:\[\.\.\.\i\(\),\.\.\.)\i/,
+=======
+                // Keep the overlay branch anchor, with an optional FlexibleDMs wrapper.
+                match: /(?<=\i=__OVERLAY__\?\i:(?:Vencord\.Plugins\.plugins(?:\.FlexibleDMs|\["FlexibleDMs"\])\.navigationIds\()?\[\.\.\.\i\(\),\.\.\.)\i/,
+>>>>>>> f6662411 (fix(FlexibleDMs): preserve native pins and folder state)
                 // ....concat(pins).concat(toArray(channelIds).filter(c => !isPinned(c)))
                 replace: "$self.getAllUncollapsedChannels().concat($&.filter(c=>!$self.isPinned(c)))"
             }
@@ -152,7 +162,12 @@ export default definePlugin({
         {
             find: "=()=>!1,ensureChatIsVisible:",
             replacement: {
+<<<<<<< HEAD
                 match: /(?<=\i===\i\.ME\?)\i\.\i\.getPrivateChannelIds\(\)/,
+=======
+                // Match the DM branch even when FlexibleDMs wraps its channel IDs.
+                match: /(?<=\i===\i\.ME\?(?:Vencord\.Plugins\.plugins(?:\.FlexibleDMs|\["FlexibleDMs"\])\.navigationIds\()?)\i\.\i\.getPrivateChannelIds\(\)/,
+>>>>>>> f6662411 (fix(FlexibleDMs): preserve native pins and folder state)
                 replace: "$self.getAllUncollapsedChannels().concat($&.filter(c=>!$self.isPinned(c)))"
             }
         },
