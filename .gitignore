@@ -24,3 +24,5 @@ constants.ts
 *.7z
 *.rar
 *.zip
+
+.github*
