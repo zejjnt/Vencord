@@ -26,3 +26,5 @@ constants.ts
 *.zip
 
 .github*
+.editorconfig
+.git/gittyup*
