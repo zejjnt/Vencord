@@ -46,3 +46,6 @@
 [submodule "src/userplugins/LastOnlineTracker"]
 	path = src/userplugins/LastOnlineTracker
 	url = https://github.com/k1ng0p/LastOnlineTracker
+[submodule "src/userplugins/globalSearch"]
+	path = src/userplugins/globalSearch
+	url = https://github.com/zejjnt/globalSearch

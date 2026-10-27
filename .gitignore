@@ -28,3 +28,7 @@ constants.ts
 .github*
 .editorconfig
 .git/gittyup*
+pnpm-lock.yaml
+packages/vencord-types/package.json
+packages/discord-types/package.json
+package.json
