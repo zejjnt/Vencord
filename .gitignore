@@ -36,3 +36,7 @@ package.json
 packages/discord-types/package.json
 packages/vencord-types/package.json
 pnpm-lock.yaml
+pnpm-lock.yaml
+packages/vencord-types/package.json
+packages/discord-types/package.json
+package.json
