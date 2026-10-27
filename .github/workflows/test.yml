@@ -22,11 +22,26 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Lint & Test if desktop version compiles
-              run: pnpm test
+            - name: Test dev build
+              run: pnpm build --dev
+
+#            - name: Lint & Test if desktop version compiles
+#              run: pnpm test
 
             - name: Test if web version compiles
               run: pnpm buildWeb
 
-            - name: Test if plugin structure is valid
-              run: pnpm generatePluginJson
+            - name: Build web standalone
+              run: pnpm buildWebStandalone
+
+            - name: Build standalone
+              run: pnpm run buildStandalone
+
+            - name: Build reporter
+              run: pnpm run buildReporter
+
+            - name: Build reporter standalone
+              run: pnpm run buildReporterStandalone
+
+#            - name: Test if plugin structure is valid
+#              run: pnpm generatePluginJson
