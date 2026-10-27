@@ -21,6 +21,7 @@ jobs:
         run: |
           git submodule sync --recursive
           git submodule update --init --recursive --force
+          git pull --recurse-submodules
 
       - name: Build / Test
         run: |
