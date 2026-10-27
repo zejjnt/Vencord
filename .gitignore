@@ -17,6 +17,16 @@ package-lock.json
 ExtensionCache/
 settings/
 /.vs*
+/.vs/*
+.vs
+.vs*
+.vs/
+.vs/*
+.vscode
+.github*
+.github/*
+/.github*
+/.github/*
 *.bak
 *.bak2
 .npmrc
