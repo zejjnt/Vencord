@@ -45,7 +45,7 @@
 	url = https://github.com/zejjnt/vc-unreadcountbadge
 [submodule "src/userplugins/LastOnlineTracker"]
 	path = src/userplugins/LastOnlineTracker
-	url = https://github.com/k1ng0p/LastOnlineTracker
+	url = https://github.com/zejjnt/LastOnlineTracker
 [submodule "src/userplugins/globalSearch"]
 	path = src/userplugins/globalSearch
 	url = https://github.com/zejjnt/globalSearch
