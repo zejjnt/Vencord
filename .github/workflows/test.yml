@@ -22,8 +22,11 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Test dev build
-              run: pnpm build --dev
+            - name: Test build
+              run: pnpm build
+
+#            - name: Test dev build
+#              run: pnpm build --dev
 
 #            - name: Lint & Test if desktop version compiles
 #              run: pnpm test
