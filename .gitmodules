@@ -24,7 +24,7 @@
 	url = https://github.com/zejjnt/vc-betterActivities
 [submodule "src/userplugins/shyTyping"]
 	path = src/userplugins/shyTyping
-	url = https://git.nin0.dev/ZaInT/shyTyping
+	url = https://git.nin0.dev/ZaInT/shyTyping.git
 [submodule "src/userplugins/vc-streampip"]
 	path = src/userplugins/vc-streampip
 	url = https://github.com/zejjnt/vc-streampip
