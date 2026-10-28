@@ -19,6 +19,7 @@ jobs:
       - name: Ensure submodules are up-to-date (defensive)
         run: |
           git submodule sync --recursive
+          git submodule update --init --recursive --remote
           git pull --recurse-submodules
       - name: Build / Test
         run: |
