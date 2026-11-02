@@ -10,10 +10,11 @@ vencord_installer
 yarn.lock
 bun.lock
 package-lock.json
-
+.skills
+.skills/*
+.skills*
 *.log
 *.tsbuildinfo
-
 ExtensionCache/
 settings/
 /.vs*
